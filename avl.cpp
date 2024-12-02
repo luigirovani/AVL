@@ -7,8 +7,8 @@ using namespace std;
 
 
 // Luigi Augusto Rovani RA 2266474
-// PEDRO HENRIQUE TAGATA FERREIRA ra 1884476
-// 
+// Lucas Vinícius Zuque de Lima RA 2268710
+// Maria Julia Leandro Leal da Rocha 
 
 class AVLNode {
 public:
@@ -25,7 +25,7 @@ public:
     AVLNode* insert(AVLNode* root, int key) {
         if (root == nullptr)
             return new AVLNode(key);
-
+        
         if (key < root->key)
             root->left = insert(root->left, key);
         else if (key > root->key)
@@ -35,30 +35,25 @@ public:
 
         root->height = 1 + max(getHeight(root->left), getHeight(root->right));
         int balance = getBalance(root);
-		cout << "Balanço:  " << balance << endl;
-
-        if (balance > 1 || balance < -1) {
-            cout << "Nó desbalanceado encontrado: " << root->key << " com balanceamento " << balance << endl;
-        }
 
         if (balance > 1 && key < root->left->key) {
-            cout << "Rotação à direita em " << root->key << endl;
+            cout << "RSD" << root->key << endl;
             return rightRotate(root);
         }
 
         if (balance < -1 && key > root->right->key) {
-            cout << "Rotação à esquerda em " << root->key << endl;
+            cout << "RSE" << root->key << endl;
             return leftRotate(root);
         }
 
         if (balance > 1 && key > root->left->key) {
-            cout << "Rotação à esquerda em " << root->left->key << " e depois à direita em " << root->key << endl;
+            cout << "RDD" << root->left->key <<  endl;
             root->left = leftRotate(root->left);
             return rightRotate(root);
         }
 
         if (balance < -1 && key < root->right->key) {
-            cout << "Rotação à direita em " << root->right->key << " e depois à esquerda em " << root->key << endl;
+            cout << "RDE" << root->right->key << endl;
             root->right = rightRotate(root->right);
             return leftRotate(root);
         }
@@ -81,7 +76,6 @@ public:
         printTree(root->left, space);
     }
 
-private:
     int getHeight(AVLNode* node) const {
         return node == nullptr ? 0 : node->height;
     }
@@ -89,6 +83,8 @@ private:
     int getBalance(AVLNode* node) const {
         return node == nullptr ? 0 : getHeight(node->left) - getHeight(node->right);
     }
+
+private:
 
     AVLNode* leftRotate(AVLNode* z) {
         AVLNode* y = z->right;
@@ -124,28 +120,24 @@ int main() {
     AVLTree tree;
     AVLNode* root = nullptr;
 
-    int sequence[] = { 70, 60, 40, 20, 65, 50, 10, 25, 28, 27, 75, 62 };
-    int n = sizeof(sequence) / sizeof(sequence[0]);
-
-    for (int i = 0; i < n; ++i) {
-        root = tree.insert(root, sequence[i]);
-        cout << "Arvore depois da insercao de " << sequence[i] << ":\n";
-        tree.printTree(root);
-        cout << "\n--------------------------------\n";
-    }
-
     while (true) {
 		cout << "Digite um valor para inserir na árvore: " << endl;
 		int valor;
 		cin >> valor;
 
+        if (valor == 0) {
+			auto balance = tree.getBalance(root);
+			cout << "Bal: " << balance << endl;
+            free(root);
+        }
+
 		if (cin.fail()) {
-			cout << "Encerrado" << endl;
+			cout << "Fim" << endl;
+			free(root);
 			break;
 		}
 
         root = tree.insert(root, valor);
-        tree.printTree(root);
         cout << "\n--------------------------------\n";
     }
 
