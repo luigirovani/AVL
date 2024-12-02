@@ -5,6 +5,10 @@
 #include <locale>
 using namespace std;
 
+// Luigi Augusto Rovani RA 2266474
+// Lucas Vinícius Zuque de Lima RA 2268710
+// Maria Julia Leandro Leal da Rocha 
+
 template <typename T>
 class AVLNode {
 public:
