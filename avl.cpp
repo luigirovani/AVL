@@ -185,6 +185,7 @@ int main() {
         auto input = tree.getInput();
 
         if (input == 0) {
+			cout << "Bal= " << tree.getBalance() << endl;
             tree.clear();
         }
         else if (input == -2) {
