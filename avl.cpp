@@ -23,14 +23,16 @@ private:
     AVLNode* root;
 
     AVLNode* insertNode(AVLNode* node, T key) {
+        
         if (node == nullptr)
             return new AVLNode(key);
-
-        if (key < node->key)
+        
+        if (key < node->key) {
             node->left = insertNode(node->left, key);
-        else if (key > node->key)
+        }
+        else if (key > node->key) {
             node->right = insertNode(node->right, key);
-        else
+        } else
             return node;
 
         node->height = 1 + max(getHeight(node->left), getHeight(node->right));
@@ -170,7 +172,6 @@ public:
         cout << "Digite um valor do tipo <" << typeid(T).name() << "> para inserir na árvore.\n";
         cout << "Digite 0 para limpar a árvore.\n";
         cout << "Digite -1 para sair.\n";
-        cout << "Digite -2 para imprimir a árvore.\n";
         cout << endl;
     }
 };
@@ -187,9 +188,6 @@ int main() {
         if (input == 0) {
 			cout << "Bal= " << tree.getBalance() << endl;
             tree.clear();
-        }
-        else if (input == -2) {
-            tree.print();
         }
         else if (input == -1) {
             break;
