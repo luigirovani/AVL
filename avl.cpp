@@ -1,10 +1,5 @@
 ﻿#include <iostream>
 #include <locale>
-#include <limits>
-#include <iomanip>
-#include <cmath>
-#include <vector>
-#include <string>
 
 
 using namespace std;
