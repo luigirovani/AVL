@@ -1,10 +1,16 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <locale>
 #include <limits>
+#include <iomanip>
+#include <cmath>
+#include <vector>
+#include <string>
+
+
 using namespace std;
 
 // Luigi Augusto Rovani 
-// Lucas Vinícius Zuque de Lima
+// Lucas VinÃ­cius Zuque de Lima
 // Maria Julia Leandro Leal da Rocha 
 
 template <typename T>
@@ -112,19 +118,21 @@ private:
         node = nullptr;
     }
 
+
     void printTree(AVLNode* node, int space = 0, int level_gap = 5) const {
         if (node == nullptr)
             return;
 
         space += level_gap;
-        printTree(node->right, space);
+
+        printTree(node->left, space);
 
         cout << endl;
         for (int i = level_gap; i < space; ++i)
             cout << " ";
         cout << node->key << "\n";
 
-        printTree(node->left, space);
+        printTree(node->right, space);
     }
 
 
@@ -134,18 +142,29 @@ public:
         clearTree(root);
     }
 
+    bool isEmpty() const {
+        return root == nullptr;
+    }
+
     void insert(T key) {
         root = insertNode(root, key);
     }
 
     void clear() {
         clearTree(root);
-        cout << "Árvore limpa!\n";
+        cout << "Ãrvore limpa!\n";
     }
 
     void print() const {
+        if isEmpty() {
+            cout << "A Ã¡rvore estÃ¡ vazia" << endl;
+            return;
+        }
+
         printTree(root);
+
     }
+    
 
     int getBalance() const {
         return getBalance(root);
@@ -157,7 +176,7 @@ public:
         cin >> input;
 
         if (cin.fail()) {
-            cout << "Valor inválido!\nEstancie uma árvore de outro tipo\n" << endl;
+            cerr << "Valor invÃ¡lido!\nEstancie uma Ã¡rvore de outro tipo\n" << endl;
             printTip();
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -169,9 +188,10 @@ public:
     }
 
     void printTip() const {
-        cout << "Digite um valor do tipo <" << typeid(T).name() << "> para inserir na árvore.\n";
-        cout << "Digite 0 para limpar a árvore.\n";
+        cout << "Digite um valor do tipo <" << typeid(T).name() << "> para inserir na Ã¡rvore.\n";
+        cout << "Digite 0 para limpar a Ã¡rvore.\n";
         cout << "Digite -1 para sair.\n";
+        cout << "Digite -2 para printar a Ã¡rvore.\n";
         cout << endl;
     }
 };
@@ -191,6 +211,9 @@ int main() {
         }
         else if (input == -1) {
             break;
+        }
+        else if (input == -2) {
+            tree.print();
         }
         else {
             tree.insert(input);
