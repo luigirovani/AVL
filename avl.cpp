@@ -9,6 +9,7 @@
 #include <limits>
 #include <locale>
 
+
 using namespace std;
 
 template <typename T>
@@ -54,15 +55,15 @@ private:
             return rightRotate(move(node));
         }
 
-        if (balance < -1 && key > node->right->key) {
-            cout << "RSE " << node->key << endl;
-            return leftRotate(move(node));
-        }
-
         if (balance > 1 && key > node->left->key) {
             cout << "RDD " << node->left->key << endl;
             node->left = leftRotate(move(node->left));
             return rightRotate(move(node));
+        }
+
+        if (balance < -1 && key > node->right->key) {
+            cout << "RSE " << node->key << endl;
+            return leftRotate(move(node));
         }
 
         if (balance < -1 && key < node->right->key) {
@@ -149,7 +150,6 @@ public:
     }
 
     T getInput() {
-        cout << "Insira o valor: ";
         T input;
         cin >> input;
 
@@ -177,7 +177,6 @@ public:
 int main() {
     setlocale(LC_ALL, "");
     AVLTree<int> tree;
-    tree.printTip();
 
     while (true) {
         auto input = tree.getInput();
